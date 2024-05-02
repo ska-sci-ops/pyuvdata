@@ -1339,12 +1339,14 @@ class UVFITS(UVData):
             ant_hdu.header["FREQ"] = self.freq_array[0, 0]
 
         if (self.rdate is None) or (self.rdate == ""):
-            rdate_obj = Time(np.floor(self.time_array[0]), format="jd", scale="utc")
+            rdate_obj = Time(np.floor(self.time_array[0]) + 0.5, format="jd", scale="utc",
+                             location=self.telescope_location)
         else:
             try:
                 rdate_obj = Time(self.rdate, scale="utc")
             except ValueError:
-                rdate_obj = Time(np.floor(self.time_array[0]), format="jd", scale="utc")
+                rdate_obj = Time(np.floor(self.time_array[0]) + 0.5, format="jd", scale="utc",
+                                 location=self.telescope_location)
 
         if self.rdate is None:
             ant_hdu.header["RDATE"] = rdate_obj.strftime("%Y-%m-%d")
