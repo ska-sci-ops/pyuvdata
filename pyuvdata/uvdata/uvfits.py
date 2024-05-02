@@ -1159,7 +1159,7 @@ class UVFITS(UVData):
             hdu.header["PZERO" + str(i + 1) + "  "] = pzero_dict[key]
 
         # ISO string of first time in self.time_array
-        hdu.header["DATE-OBS"] = Time(self.time_array[0], scale="utc", format="jd").isot
+        hdu.header["DATE-OBS"] = Time(self.time_array[0], scale="utc", format="jd").strftime("%Y-%m-%d")
 
         hdu.header["CTYPE2  "] = "COMPLEX "
         hdu.header["CRVAL2  "] = 1.0
